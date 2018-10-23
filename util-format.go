@@ -7,6 +7,7 @@ type format byte
 
 const (
 	fUnknown format = iota
+	fINI
 	fJSON
 	fYAML
 	fTOML
@@ -15,6 +16,8 @@ const (
 func detectFormat(filename string) format {
 	if l := strings.LastIndex(filename, "."); l > -1 {
 		switch strings.ToLower(filename[l+1:]) {
+		case "ini":
+			return fINI
 		case "json":
 			return fJSON
 		case "yml", "yaml":
@@ -32,5 +35,5 @@ func expandName(filename string) []string {
 		return []string{filename}
 	}
 
-	return []string{filename + ".json", filename + ".yaml", filename + ".yml", filename + ".toml"}
+	return []string{filename + ".json", filename + ".yaml", filename + ".yml", filename + ".toml", filename + ".ini"}
 }

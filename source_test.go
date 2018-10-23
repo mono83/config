@@ -2,8 +2,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var dataProvider = []struct {
@@ -24,7 +25,7 @@ var dataProvider = []struct {
 	{
 		Source:  Source{FileName: "config", FileNames: []string{"alt.json", "beta"}, Subfolder: "app", LookupEtc: true},
 		Folders: []string{".", "./app/", "/etc/app/"},
-		Files:   []string{"config.json", "config.yaml", "config.yml", "config.toml", "alt.json", "beta.json", "beta.yaml", "beta.yml", "beta.toml"},
+		Files:   []string{"config.json", "config.yaml", "config.yml", "config.toml", "config.ini", "alt.json", "beta.json", "beta.yaml", "beta.yml", "beta.toml", "beta.ini"},
 	},
 }
 
