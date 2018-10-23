@@ -10,7 +10,7 @@ Here is the list of features you may be interested in:
 - :heavy_check_mark: Supports YAML (Using https://gopkg.in/yaml.v2)
 - :heavy_check_mark: Supports TOML (Using https://github.com/BurntSushi/toml)
 - :heavy_check_mark: Supports INI (Using https://gopkg.in/ini.v1)
-- :heavy_check_mark: Aliases, subfolders and on-demand lookup in home folder and `/etc/`
+- :heavy_check_mark: Aliases, subfolders and on-demand lookup in home folder (github.com/mitchellh/go-homedir) and `/etc/`
 - :heavy_check_mark: Data validation
 - :x: Placeholders
 - :x: Configuration file chaining
@@ -94,4 +94,32 @@ if err := (config.Source{
   }).Read(&c); err != nil {
   panic(err)
 }
+```
+
+## Validation
+
+If structure, that is used in configuration has method `Validate() error`, 
+configuration reader will automatically invoke it:
+
+```go
+type Config struct {
+    Token string `json:"token" yaml:"token" toml:"token"`
+}
+
+// Validate will be automatically invoked by mono83/config
+func (c Config) Validate() error {
+  if len(c.Token) == 0 {
+    return errors.New("empty access token")
+  }
+
+  return nil
+}
+```
+
+This behaviour can be disabled during `config.Source` initialization:
+
+```go 
+
+(config.Source{SkipValidation: true, ...}).Read(...)
+
 ```

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	homedir "github.com/mitchellh/go-homedir"
 )
 
 // Source contains information about configuration source file
@@ -44,7 +46,11 @@ func (s Source) GetAllFolders() []string {
 		total = append(total, "."+string(os.PathSeparator)+s.Subfolder+string(os.PathSeparator))
 	}
 
-	// TODO homedir
+	if s.LookupHome {
+		if home, err := homedir.Dir(); err == nil {
+			total = append(total, home)
+		}
+	}
 
 	if s.LookupEtc && os.PathSeparator == '/' {
 		if hasSubfolder {
