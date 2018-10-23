@@ -1,6 +1,20 @@
 Simple application configuration tool
 =====================================
 
+# Key features
+
+Here is the list of features you may be interested in:
+
+- :heavy_check_mark: **Simple** 
+- :heavy_check_mark: Supports JSON
+- :heavy_check_mark: Supports YAML 
+- :heavy_check_mark: Supports TOML 
+- :heavy_check_mark: Aliases, subfolders and on-demand lookup in home folder and `/etc/`
+- :heavy_check_mark: Data validation
+- :x: Placeholders
+- :x: Configuration file chaining
+- :x: Autoreload
+
 ## Before you start
 
 First of all, you need some structure, that will hold configuration
@@ -35,7 +49,7 @@ Module will make attempt to find one of these files: `config.json`,
 `config.yaml`, `config.toml` in current folder and unmarshal them using
 corresponding unmarshaller.
 
-## Simple example
+## More complex usecase
 
 You can specify filename and other options using `config.Source`
 structure (event `config.ReadDefault` uses it intenally):
