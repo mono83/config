@@ -11,7 +11,7 @@ import (
 // Source contains information about configuration source file
 type Source struct {
 	FileName  string   // File name of configuration file. Can be without extension
-	FileNames []string // Aliases for configuation files
+	FileNames []string // Aliases for configuration files
 
 	Subfolder string // Subfolder name
 
