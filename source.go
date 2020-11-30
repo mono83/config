@@ -18,6 +18,8 @@ type Source struct {
 	SkipValidation bool // Disable automatic validation for structs with Validate method
 	LookupHome     bool // If true, module will make attempt to find config inside user home folder
 	LookupEtc      bool // If true, module will make attempt to find config in /etc/
+
+	OnAfterRead func(interface{}) error // Callback invoked after read and before validation
 }
 
 // GetAllFileNames returns all file names for configuration files
@@ -106,7 +108,17 @@ func (s Source) Read(target interface{}) error {
 	}
 
 	err = readBytes(f, bts, target)
-	if err == nil && !s.SkipValidation {
+	if err != nil {
+		return err
+	}
+
+	if s.OnAfterRead != nil {
+		if err = s.OnAfterRead(target); err != nil {
+			return err
+		}
+	}
+
+	if !s.SkipValidation {
 		if v, ok := target.(validable); ok {
 			err = v.Validate()
 			if err != nil {
