@@ -5,7 +5,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"gopkg.in/ini.v1"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 func iniUnmarshal(data []byte, v interface{}) error {
